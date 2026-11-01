@@ -1,0 +1,341 @@
+{
+  "authority": {
+    "grants": [
+      {
+        "action": "local-edit",
+        "granted": true,
+        "instruction": "fixture",
+        "limits": null,
+        "target": null
+      },
+      {
+        "action": "peer-create",
+        "granted": true,
+        "instruction": "fixture",
+        "limits": null,
+        "target": null
+      },
+      {
+        "action": "subagent-create",
+        "granted": true,
+        "instruction": "fixture",
+        "limits": null,
+        "target": null
+      },
+      {
+        "action": "push",
+        "granted": true,
+        "instruction": "fixture",
+        "limits": null,
+        "target": null
+      },
+      {
+        "action": "pr-create",
+        "granted": true,
+        "instruction": "fixture",
+        "limits": null,
+        "target": null
+      },
+      {
+        "action": "merge",
+        "granted": true,
+        "instruction": "fixture",
+        "limits": null,
+        "target": null
+      },
+      {
+        "action": "release",
+        "granted": true,
+        "instruction": "fixture",
+        "limits": null,
+        "target": null
+      },
+      {
+        "action": "cleanup",
+        "granted": true,
+        "instruction": "fixture",
+        "limits": null,
+        "target": null
+      }
+    ]
+  },
+  "claim_history": [
+    {
+      "at": "2026-10-31T18:07:25+00:00",
+      "event": "claim",
+      "generation": 1,
+      "session_id": "coordinator-1"
+    }
+  ],
+  "claimed_by": {
+    "claimed_at": "2026-10-31T18:07:25+00:00",
+    "generation": 1,
+    "session_id": "coordinator-1"
+  },
+  "coordination_reason": "r",
+  "created_at": "2026-10-31T18:07:25+00:00",
+  "decisions": [
+    {
+      "context": null,
+      "evidence": null,
+      "id": "dec-1",
+      "opened_at": "2026-10-31T18:07:25+00:00",
+      "options": null,
+      "question": "Ship behind a flag?",
+      "resolution": null,
+      "resolved_at": null,
+      "status": "open"
+    }
+  ],
+  "delivery_authority": "d",
+  "denials": [],
+  "intent": "i",
+  "next_action": "",
+  "outcome": null,
+  "profile": {
+    "cleanup": {
+      "owner_sessions": "retain-until-integrated",
+      "partial_launch": "retain-for-inspection",
+      "reviewer_sessions": "retain",
+      "workspaces": "retain-until-verified-and-authorized"
+    },
+    "context": {
+      "compact_at_boundary": true,
+      "rebrief_after_compaction": true,
+      "retain_owner_through_fixes": true
+    },
+    "delivery": {
+      "merge": "coordinator",
+      "merge_order": "explicit-queue",
+      "pr_create": "owner",
+      "push": "owner",
+      "release": "coordinator"
+    },
+    "limits": {
+      "cleanup_evidence_max_age_hours": 24,
+      "max_active_workstreams": 3,
+      "max_dispatch_attempts": 3
+    },
+    "profile": {
+      "name": "default",
+      "version": 1
+    },
+    "repository": {
+      "install_command": "inspect-repository",
+      "local_gates": "repository-defined"
+    },
+    "review": {
+      "allow_unavailable": [],
+      "findings_policy": "fix-in-workstream",
+      "max_reviewer_sessions_per_owner": 1,
+      "regressions_only_from_round": 3,
+      "required": [
+        "independent"
+      ]
+    },
+    "runtime": {
+      "cross_runtime_requires_instruction": true,
+      "default": "match-coordinator",
+      "explicit_choice_wins": true
+    },
+    "topology": {
+      "lane_reuse": "never",
+      "mode": "workstreams",
+      "one_writable_assignment_per_workspace": true,
+      "state_writer": "coordinator",
+      "successor_spawning": "coordinator"
+    }
+  },
+  "profile_digest": "9ad73ddad9f1f1cac1c239dd7bed5facc1d3411912ad97017efb1a3220a769e0",
+  "revision": 15,
+  "run_id": "fixture-v2-run-a9e12d",
+  "schema_version": 2,
+  "status": "active",
+  "title": "Fixture v2 run",
+  "updated_at": "2026-10-31T18:07:25+00:00",
+  "workstreams": [
+    {
+      "acceptance_criteria": [
+        "x"
+      ],
+      "assignment_generation": 1,
+      "assignment_history": [],
+      "base_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "binding": "herdr-codex",
+      "blocker": null,
+      "branch": "story-ws-1",
+      "brief": "b",
+      "brief_digest": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+      "cleanup_disposition": null,
+      "cleanup_evidence": null,
+      "corrections": [],
+      "created_at": "2026-10-31T18:07:25+00:00",
+      "deliverables": [],
+      "delivery_authority": "d",
+      "dependencies": [],
+      "dispatch_attempts": 1,
+      "id": "ws-1",
+      "kind": "ship",
+      "landing": null,
+      "owner_id": "worker-1",
+      "owner_type": "collaborator",
+      "permitted_operations": [
+        "local-edit",
+        "push",
+        "pr-create"
+      ],
+      "repository": "r",
+      "requests": [
+        {
+          "brief_digest": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+          "dispatch_attempt": 1,
+          "generation": 1,
+          "issued_at": "2026-10-31T18:07:25+00:00",
+          "owner_id": "worker-1",
+          "purpose": "brief",
+          "request_id": "req-1",
+          "target_base_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "results": [
+        {
+          "artifacts": [
+            "https://example.invalid/pr/1"
+          ],
+          "base_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "digest": "4ef241c63101001e7ec0e6822b213b51f1d1e69821d6da8a958866274c513143",
+          "dispatch_attempt": 1,
+          "generation": 1,
+          "head_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "outcome": "completed",
+          "recorded_at": "2026-10-31T18:07:25+00:00",
+          "request_id": "req-1",
+          "review": [
+            {
+              "reviewer": "independent",
+              "status": "passed"
+            }
+          ],
+          "status": "accepted",
+          "summary": "done",
+          "verification": [
+            {
+              "command": "t",
+              "exit_code": 0
+            }
+          ]
+        }
+      ],
+      "scope": "s",
+      "stack_parent": null,
+      "status": "completed",
+      "title": "ship one",
+      "updated_at": "2026-10-31T18:07:25+00:00",
+      "verification": [
+        {
+          "command": "t",
+          "exit_code": 0,
+          "head_sha": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "recorded_at": "2026-10-31T18:07:25+00:00"
+        }
+      ],
+      "workspace": {
+        "branch": "story-ws-1",
+        "created_by_run": true,
+        "expected_base_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "lease_holder": "fixture-v2-run-a9e12d/ws-1",
+        "lease_observed": false,
+        "manager": "treehouse",
+        "observed_head_sha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "path": "/fixture/wt/ws-1",
+        "provisioning": {
+          "problems": [],
+          "status": "ready"
+        },
+        "recorded_at": "2026-10-31T18:07:25+00:00",
+        "release_policy": "retain-until-verified-and-authorized",
+        "repository_common_dir": "/fixture/repo/.git"
+      },
+      "worktree": "/fixture/wt/ws-1"
+    },
+    {
+      "acceptance_criteria": [
+        "x"
+      ],
+      "assignment_generation": 1,
+      "assignment_history": [],
+      "base_sha": null,
+      "binding": "herdr-codex",
+      "blocker": null,
+      "branch": null,
+      "brief": "b",
+      "brief_digest": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+      "cleanup_disposition": null,
+      "cleanup_evidence": null,
+      "corrections": [],
+      "created_at": "2026-10-31T18:07:25+00:00",
+      "deliverables": [],
+      "delivery_authority": "d",
+      "dependencies": [],
+      "dispatch_attempts": 1,
+      "id": "ws-2",
+      "kind": "scout",
+      "landing": null,
+      "owner_id": "worker-2",
+      "owner_type": "collaborator",
+      "permitted_operations": [
+        "local-edit"
+      ],
+      "repository": "r",
+      "requests": [
+        {
+          "brief_digest": "3e23e8160039594a33894f6564e1b1348bbd7a0088d42c4acb73eeaed59c009d",
+          "dispatch_attempt": 1,
+          "generation": 1,
+          "issued_at": "2026-10-31T18:07:25+00:00",
+          "owner_id": "worker-2",
+          "purpose": "brief",
+          "request_id": "req-s1",
+          "target_base_sha": null
+        }
+      ],
+      "results": [
+        {
+          "artifacts": [
+            "https://example.invalid/pr/1"
+          ],
+          "base_sha": null,
+          "digest": "0652529a0c38d383265cc22c99eba73e25d7c7c9a501628fe7efa0648520305e",
+          "dispatch_attempt": 1,
+          "generation": 1,
+          "head_sha": null,
+          "outcome": "completed",
+          "recorded_at": "2026-10-31T18:07:25+00:00",
+          "request_id": "req-s1",
+          "review": [
+            {
+              "reviewer": "independent",
+              "status": "passed"
+            }
+          ],
+          "status": "accepted",
+          "summary": "done",
+          "verification": [
+            {
+              "command": "t",
+              "exit_code": 0
+            }
+          ]
+        }
+      ],
+      "scope": "s",
+      "stack_parent": null,
+      "status": "working",
+      "title": "scout two",
+      "updated_at": "2026-10-31T18:07:25+00:00",
+      "verification": [],
+      "workspace": null,
+      "worktree": null
+    }
+  ]
+}

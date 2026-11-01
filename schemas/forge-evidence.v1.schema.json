@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-coordination/forge-evidence.v1",
+  "title": "Publication or landing evidence from forge_github.py, or published-branch evidence",
+  "type": "object",
+  "required": [
+    "schema",
+    "kind",
+    "source",
+    "read_at"
+  ],
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "kind": {
+      "enum": [
+        "pr",
+        "landing",
+        "branch"
+      ]
+    },
+    "source": {
+      "enum": [
+        "gh",
+        "git"
+      ]
+    },
+    "read_at": {
+      "type": "string"
+    },
+    "repo": {
+      "type": "string"
+    },
+    "pr": {
+      "type": "integer"
+    },
+    "target": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "draft": {
+      "type": "boolean"
+    },
+    "head_oid": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "head_ref": {
+      "type": "string"
+    },
+    "base_ref": {
+      "type": "string"
+    },
+    "checks": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer"
+        },
+        "required_passing": {
+          "type": "array"
+        },
+        "required_not_passing": {
+          "type": "array"
+        },
+        "required_missing": {
+          "type": "array"
+        },
+        "failing": {
+          "type": "array"
+        },
+        "pending": {
+          "type": "array"
+        }
+      }
+    },
+    "review_threads": {
+      "type": "object",
+      "properties": {
+        "unresolved": {
+          "type": "integer"
+        }
+      }
+    },
+    "merged": {
+      "type": "boolean"
+    },
+    "merged_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "merge_commit": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source_head": {
+      "type": "string"
+    },
+    "target_contains_merge_commit": {
+      "type": "boolean"
+    },
+    "remote": {
+      "type": "string"
+    },
+    "remote_ref": {
+      "type": "string"
+    },
+    "oid": {
+      "type": "string"
+    },
+    "head_stable": {
+      "type": "boolean"
+    },
+    "complete": {
+      "type": "boolean"
+    },
+    "uncertain": {
+      "type": "boolean"
+    },
+    "problems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

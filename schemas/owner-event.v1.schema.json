@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-coordination/owner-event.v1",
+  "title": "Owner event recorded by record-event",
+  "type": "object",
+  "required": [
+    "schema",
+    "event_id",
+    "request_id",
+    "generation",
+    "attempt",
+    "owner",
+    "kind",
+    "text",
+    "source",
+    "status",
+    "digest",
+    "recorded_at"
+  ],
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generation": {
+      "type": "integer"
+    },
+    "attempt": {
+      "type": "integer"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "kind": {
+      "enum": [
+        "ack",
+        "progress",
+        "question",
+        "blocked",
+        "waiting"
+      ]
+    },
+    "text": {
+      "type": "string"
+    },
+    "key": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "wait": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "wait_on",
+            "clears_when",
+            "next_check_at"
+          ]
+        }
+      ]
+    },
+    "source": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "reply-correlated",
+            "runtime-read",
+            "text-correlated",
+            "coordinator-observed"
+          ]
+        },
+        "identity": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "detail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "accepted",
+        "stale",
+        "uncertain"
+      ]
+    },
+    "decision_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

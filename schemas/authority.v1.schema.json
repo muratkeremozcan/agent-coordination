@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-coordination/authority.v1",
+  "title": "Run authority grants: every action granted or withheld",
+  "type": "array",
+  "minItems": 8,
+  "maxItems": 8,
+  "items": {
+    "type": "object",
+    "required": [
+      "action",
+      "granted",
+      "instruction"
+    ],
+    "properties": {
+      "action": {
+        "enum": [
+          "local-edit",
+          "peer-create",
+          "subagent-create",
+          "push",
+          "pr-create",
+          "merge",
+          "release",
+          "cleanup"
+        ]
+      },
+      "granted": {
+        "type": "boolean"
+      },
+      "instruction": {
+        "type": "string",
+        "minLength": 1
+      },
+      "target": {},
+      "limits": {}
+    }
+  }
+}

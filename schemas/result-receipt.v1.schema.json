@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-coordination/result-receipt.v1",
+  "title": "Owner result receipt, as recorded by record-result",
+  "type": "object",
+  "required": [
+    "request_id",
+    "generation",
+    "outcome"
+  ],
+  "properties": {
+    "request_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "generation": {
+      "type": "integer"
+    },
+    "outcome": {
+      "enum": [
+        "completed",
+        "failed"
+      ]
+    },
+    "summary": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "head_sha": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{7,64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "base_sha": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{7,64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "verification": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "command",
+          "exit_code"
+        ],
+        "properties": {
+          "command": {
+            "type": "string"
+          },
+          "exit_code": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "review": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "reviewer",
+          "status"
+        ],
+        "properties": {
+          "reviewer": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "findings",
+              "blocked",
+              "not-run",
+              "unavailable"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

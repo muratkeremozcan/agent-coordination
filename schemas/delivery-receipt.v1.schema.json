@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-coordination/delivery-receipt.v1",
+  "title": "Transport delivery receipt stored by record-delivery",
+  "type": "object",
+  "required": [
+    "schema",
+    "request_id",
+    "state",
+    "lifecycle",
+    "receipt",
+    "problems",
+    "status",
+    "recorded_at"
+  ],
+  "properties": {
+    "schema": {
+      "const": 1
+    },
+    "state": {
+      "enum": [
+        "delivered",
+        "acknowledged",
+        "blocked",
+        "unknown",
+        null
+      ]
+    },
+    "lifecycle": {
+      "enum": [
+        "working",
+        "idle",
+        "done",
+        "unknown",
+        null
+      ]
+    },
+    "receipt": {
+      "type": "object",
+      "required": [
+        "contract",
+        "run_id",
+        "workstream_id",
+        "assignment_generation",
+        "request_id",
+        "binding",
+        "cwd",
+        "identity",
+        "delivery_state",
+        "lifecycle_state",
+        "owned_resources"
+      ]
+    },
+    "problems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "accepted",
+        "stale",
+        "uncertain"
+      ]
+    }
+  }
+}

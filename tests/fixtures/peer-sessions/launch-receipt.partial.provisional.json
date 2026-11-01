@@ -1,0 +1,115 @@
+{
+  "_provenance": "provisional, non-authoritative: produced by spawn-fleet.py against the fake herdr in tests/fakes; not evidence of a live run",
+  "schema": "peer-sessions/launch-receipt",
+  "schema_version": 1,
+  "contract": {
+    "name": "peer-sessions-transport",
+    "version": "1",
+    "status": "pending"
+  },
+  "launch_id": "00000000000000000000000000000000",
+  "created_at": "2026-10-31T12:00:00+00:00",
+  "updated_at": "2026-10-31T12:00:00+00:00",
+  "backend": "herdr",
+  "runtime": "claude",
+  "placement": "split",
+  "correlation": {
+    "run_id": "run-7",
+    "workstream_id": "ws-2",
+    "generation": "3"
+  },
+  "status": "partial",
+  "resources": [
+    {
+      "kind": "directory",
+      "id": "/work/a",
+      "operation": "mkdir",
+      "owned": true,
+      "session": "first",
+      "created_at": "2026-10-31T12:00:00+00:00",
+      "created_root": "/work/a"
+    },
+    {
+      "kind": "directory",
+      "id": "/work/b",
+      "operation": "mkdir",
+      "owned": true,
+      "session": "second",
+      "created_at": "2026-10-31T12:00:00+00:00",
+      "created_root": "/work/b"
+    },
+    {
+      "kind": "pane",
+      "id": "wT:p2",
+      "operation": "herdr pane split",
+      "owned": true,
+      "session": "first",
+      "created_at": "2026-10-31T12:00:00+00:00",
+      "workspace": "wT"
+    },
+    {
+      "kind": "pane",
+      "id": "wT:p3",
+      "operation": "herdr pane split",
+      "owned": true,
+      "session": "second",
+      "created_at": "2026-10-31T12:00:00+00:00",
+      "workspace": "wT"
+    }
+  ],
+  "sessions": [
+    {
+      "name": "first",
+      "runtime": "claude",
+      "cwd": "/work/a",
+      "directory_created": true,
+      "state": "started",
+      "identity": {
+        "pane_id": "wT:p2",
+        "agent_kind": "claude",
+        "terminal_id": "term_first",
+        "workspace_id": "wT",
+        "pid": 12345,
+        "session_id": "11111111-2222-3333-4444-555555555555",
+        "proc_start": "fake-11111111",
+        "messaging_socket": "/tmp/cc-socks/12345.sock"
+      }
+    },
+    {
+      "name": "second",
+      "runtime": "claude",
+      "cwd": "/work/b",
+      "directory_created": true,
+      "state": "failed",
+      "identity": {
+        "pane_id": "wT:p3"
+      }
+    }
+  ],
+  "failure": {
+    "operation": "agent start second --kind claude --pane wT:p3 --timeout 30000 -- --name second --permission-mode auto",
+    "session": "second",
+    "backend": "herdr",
+    "command": [
+      "agent",
+      "start",
+      "second",
+      "--kind",
+      "claude",
+      "--pane",
+      "wT:p3",
+      "--timeout",
+      "30000",
+      "--",
+      "--name",
+      "second",
+      "--permission-mode",
+      "auto"
+    ],
+    "code": "agent_start_failed",
+    "outcome": "failed",
+    "exit_code": 1,
+    "message": "exec failed",
+    "at": "2026-10-31T12:00:00+00:00"
+  }
+}

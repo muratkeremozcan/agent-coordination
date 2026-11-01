@@ -1,0 +1,8 @@
+line-length = 120
+target-version = "py311"
+
+[lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+
+[lint.isort]
+known-first-party = ["coordinator_state", "run_profile", "state_root", "workspace_treehouse", "session_bindings", "peer_sessions_receipt", "forge_github", "coordinator_watch", "process_identity", "helpers", "_guard"]

@@ -1,0 +1,56 @@
+{
+  "_provenance": "provisional, non-authoritative: produced by spawn-fleet.py against the fake herdr in tests/fakes; not evidence of a live run",
+  "schema": "peer-sessions/launch-receipt",
+  "schema_version": 1,
+  "contract": {
+    "name": "peer-sessions-transport",
+    "version": "1",
+    "status": "pending"
+  },
+  "launch_id": "00000000000000000000000000000000",
+  "created_at": "2026-10-31T12:00:00+00:00",
+  "updated_at": "2026-10-31T12:00:00+00:00",
+  "backend": "herdr",
+  "runtime": "codex",
+  "placement": "split",
+  "correlation": {
+    "run_id": "run-7"
+  },
+  "status": "ready",
+  "resources": [
+    {
+      "kind": "directory",
+      "id": "/work/repo",
+      "operation": "mkdir",
+      "owned": true,
+      "session": "reviewer",
+      "created_at": "2026-10-31T12:00:00+00:00",
+      "created_root": "/work/repo"
+    },
+    {
+      "kind": "pane",
+      "id": "wT:p2",
+      "operation": "herdr pane split",
+      "owned": true,
+      "session": "reviewer",
+      "created_at": "2026-10-31T12:00:00+00:00",
+      "workspace": "wT"
+    }
+  ],
+  "sessions": [
+    {
+      "name": "reviewer",
+      "runtime": "codex",
+      "cwd": "/work/repo",
+      "directory_created": true,
+      "state": "ready",
+      "identity": {
+        "pane_id": "wT:p2",
+        "agent_kind": "codex",
+        "terminal_id": "term_reviewer",
+        "workspace_id": "wT"
+      }
+    }
+  ],
+  "failure": null
+}

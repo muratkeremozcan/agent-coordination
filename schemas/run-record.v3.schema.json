@@ -1,0 +1,409 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-coordination/run-record.v3",
+  "title": "Coordinator run record, schema v3",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "title",
+    "status",
+    "created_at",
+    "updated_at",
+    "intent",
+    "coordination_reason",
+    "delivery_authority",
+    "authority",
+    "profile",
+    "profile_digest",
+    "workstreams",
+    "decisions",
+    "denials",
+    "next_action",
+    "outcome",
+    "revision",
+    "claimed_by",
+    "claim_history",
+    "coordinator_runtime",
+    "supervision"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 3
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,99}$"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "completed",
+        "abandoned"
+      ]
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "grants",
+        "amendments"
+      ],
+      "properties": {
+        "grants": {
+          "$ref": "authority.v1.schema.json"
+        },
+        "amendments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "at",
+              "action",
+              "from",
+              "to",
+              "user_words"
+            ]
+          }
+        }
+      }
+    },
+    "claimed_by": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "session_id",
+            "claimed_at",
+            "generation"
+          ]
+        }
+      ]
+    },
+    "workstreams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "status",
+          "dependencies",
+          "stack_parent",
+          "permitted_operations",
+          "assignment_generation",
+          "dispatch_attempts",
+          "requests",
+          "results",
+          "landing",
+          "workspace",
+          "amendments",
+          "base_history",
+          "deliverable",
+          "deliveries",
+          "delivery_contract",
+          "disposition",
+          "events",
+          "from_scout",
+          "landing_pending",
+          "observations",
+          "owner_identity",
+          "pending_admission",
+          "permission_history",
+          "pr",
+          "publication",
+          "result_reconciliations",
+          "runtime",
+          "superseded_by",
+          "supersedes",
+          "user_references",
+          "user_words",
+          "verified_head",
+          "wait",
+          "wait_history"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "queued",
+              "working",
+              "waiting",
+              "blocked",
+              "review-ready",
+              "completed",
+              "failed"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "ship",
+              "scout"
+            ]
+          },
+          "workspace": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "workspace-receipt.v1.schema.json"
+              }
+            ]
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "result-receipt.v2.schema.json"
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "digest",
+                    "normalized_digest",
+                    "dispatch_attempt",
+                    "recorded_at"
+                  ],
+                  "properties": {
+                    "status": {
+                      "enum": [
+                        "accepted",
+                        "conflict",
+                        "duplicate",
+                        "historical",
+                        "stale",
+                        "uncertain"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "landing": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "landing.v1.schema.json"
+              }
+            ]
+          },
+          "cleanup_disposition": {
+            "enum": [
+              null,
+              "retained",
+              "eligible",
+              "removed-externally"
+            ]
+          },
+          "requests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "request_id",
+                "purpose",
+                "generation",
+                "dispatch_attempt",
+                "issued_at",
+                "root_request_id",
+                "target_base_sha",
+                "expect_ack_by",
+                "expect_result_by",
+                "acked_at",
+                "progress_at",
+                "result_at"
+              ],
+              "properties": {
+                "purpose": {
+                  "enum": [
+                    "amend",
+                    "answer",
+                    "brief",
+                    "follow-up",
+                    "rebase",
+                    "repair",
+                    "report-recovery"
+                  ]
+                }
+              }
+            }
+          },
+          "deliverable": {
+            "enum": [
+              null,
+              "landed",
+              "local-branch",
+              "pr",
+              "published-branch",
+              "report"
+            ]
+          },
+          "disposition": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "disposition",
+                  "artifact",
+                  "follow_up_owner",
+                  "source_instruction",
+                  "at"
+                ],
+                "properties": {
+                  "disposition": {
+                    "enum": [
+                      "landed",
+                      "left-for-review",
+                      "not-landing",
+                      "superseded"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "base_history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "kind",
+                "old",
+                "new",
+                "workspace_head",
+                "evidence",
+                "reason",
+                "at"
+              ],
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "advance",
+                    "restack"
+                  ]
+                }
+              }
+            }
+          },
+          "events": {
+            "type": "array",
+            "items": {
+              "$ref": "owner-event.v1.schema.json"
+            }
+          },
+          "deliveries": {
+            "type": "array",
+            "items": {
+              "$ref": "delivery-receipt.v1.schema.json"
+            }
+          },
+          "publication": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "forge-evidence.v1.schema.json"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "denials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "action",
+          "executor",
+          "command",
+          "denial",
+          "executed",
+          "status"
+        ]
+      }
+    },
+    "imported_from": {
+      "type": "object"
+    },
+    "coordinator_runtime": {
+      "enum": [
+        null,
+        "claude",
+        "codex"
+      ]
+    },
+    "supervision": {
+      "type": "object",
+      "required": [
+        "parked",
+        "due_acks",
+        "next_sweep_at",
+        "sweep_interval_minutes"
+      ]
+    },
+    "migrated_from": {
+      "type": "object"
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "question",
+          "status",
+          "responsibility",
+          "origin_workstream",
+          "affected_workstreams",
+          "gates",
+          "defer_until",
+          "resolution"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "open",
+              "resolved",
+              "superseded"
+            ]
+          },
+          "responsibility": {
+            "enum": [
+              null,
+              "coordinator",
+              "user"
+            ]
+          },
+          "gates": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "completion",
+                "dispatch",
+                "landing"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

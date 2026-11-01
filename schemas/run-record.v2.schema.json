@@ -1,0 +1,199 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-coordination/run-record.v2",
+  "title": "Coordinator run record, schema v2",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "title",
+    "status",
+    "created_at",
+    "updated_at",
+    "intent",
+    "coordination_reason",
+    "delivery_authority",
+    "authority",
+    "profile",
+    "profile_digest",
+    "workstreams",
+    "decisions",
+    "denials",
+    "next_action",
+    "outcome",
+    "revision",
+    "claimed_by",
+    "claim_history"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 2
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]{0,99}$"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "completed",
+        "abandoned"
+      ]
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "grants"
+      ],
+      "properties": {
+        "grants": {
+          "$ref": "authority.v1.schema.json"
+        }
+      }
+    },
+    "claimed_by": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "session_id",
+            "claimed_at",
+            "generation"
+          ]
+        }
+      ]
+    },
+    "workstreams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "status",
+          "dependencies",
+          "stack_parent",
+          "permitted_operations",
+          "assignment_generation",
+          "dispatch_attempts",
+          "requests",
+          "results",
+          "landing",
+          "workspace"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "queued",
+              "working",
+              "waiting",
+              "blocked",
+              "review-ready",
+              "completed",
+              "failed"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "ship",
+              "scout"
+            ]
+          },
+          "workspace": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "workspace-receipt.v1.schema.json"
+              }
+            ]
+          },
+          "results": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "result-receipt.v1.schema.json"
+                },
+                {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "digest",
+                    "dispatch_attempt",
+                    "recorded_at"
+                  ],
+                  "properties": {
+                    "status": {
+                      "enum": [
+                        "accepted",
+                        "stale"
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "landing": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "landing.v1.schema.json"
+              }
+            ]
+          },
+          "cleanup_disposition": {
+            "enum": [
+              null,
+              "retained",
+              "eligible",
+              "removed-externally"
+            ]
+          },
+          "requests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "request_id",
+                "purpose",
+                "generation",
+                "dispatch_attempt",
+                "issued_at"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "denials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "action",
+          "executor",
+          "command",
+          "denial",
+          "executed",
+          "status"
+        ]
+      }
+    },
+    "imported_from": {
+      "type": "object"
+    }
+  }
+}

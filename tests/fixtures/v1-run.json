@@ -1,0 +1,27 @@
+{
+  "claimed_by": {"claimed_at": "2026-01-02T03:04:05+00:00", "session_id": "v1-session"},
+  "coordination_reason": "two independent workstreams",
+  "created_at": "2026-01-02T03:04:05+00:00",
+  "decisions": [
+    {"context": null, "evidence": null, "id": "dec-1", "opened_at": "2026-01-02T03:05:00+00:00", "options": null,
+     "question": "Which base branch?", "resolution": null, "resolved_at": null, "status": "open"}
+  ],
+  "delivery_authority": "ship within the fixture repository, no merge authority",
+  "intent": "Sanitized schema v1 fixture for import tests.",
+  "next_action": "wait for ws-1",
+  "outcome": null,
+  "revision": 4,
+  "run_id": "fixture-v1-run-abc123",
+  "schema_version": 1,
+  "status": "active",
+  "title": "Fixture v1 run",
+  "updated_at": "2026-01-02T03:06:00+00:00",
+  "workstreams": [
+    {"acceptance_criteria": ["fixture passes"], "binding": "herdr-codex", "blocker": null, "branch": "story-one",
+     "brief": "fixture brief", "cleanup_disposition": null, "cleanup_evidence": null, "corrections": [],
+     "created_at": "2026-01-02T03:04:30+00:00", "delivery_authority": "ship, no merge", "deliverables": [],
+     "dependencies": [], "id": "ws-1", "kind": "ship", "owner_id": "worker-one", "owner_type": "collaborator",
+     "repository": "fixture-repo", "scope": "fixture scope", "status": "working", "title": "Fixture story",
+     "updated_at": "2026-01-02T03:06:00+00:00", "verification": [], "worktree": "/fixture/worktrees/one"}
+  ]
+}

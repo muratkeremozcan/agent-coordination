@@ -1,0 +1,76 @@
+# Example personal profile: a fleet-heavy operator who delegates delivery to the
+# coordinator and runs long multi-story plans as sequential lanes. Sanitized: preferences
+# only, no history, names or private context. Copy and edit; never commit a real one with
+# private detail.
+
+[profile]
+name = "murat-example"
+version = 1
+
+[runtime]
+default = "match-coordinator"
+explicit_choice_wins = true
+cross_runtime_requires_instruction = true
+
+[topology]
+# Multi-story plans run as lanes: one owner window per story, a lane checkout reused only
+# after the previous story's work is verified clean and retained.
+mode = "lanes"
+state_writer = "coordinator"
+one_writable_assignment_per_workspace = true
+lane_reuse = "verified-boundary"
+# An outgoing lane owner may start the next story's owner only when the run grants
+# peer-create; otherwise the coordinator does it.
+successor_spawning = "owner-with-grant"
+
+[delivery]
+push = "owner"
+pr_create = "owner"
+# Merges and releases the run needs are executed by the coordinator once the run grants
+# them and the gates hold: green checks, review passed, no open threads.
+merge = "coordinator"
+release = "coordinator"
+merge_order = "explicit-queue"
+# Forge evidence older than this is re-read before completion or landing.
+evidence_max_age_minutes = 30
+# Ship completion needs a passing agent co-author check on the verified head.
+forbid_agent_coauthors = true
+
+[review]
+# Independent review comes from a reviewer session of the same agent kind plus layered
+# subagent reviews; CodeRabbit is used where installed and may be absent.
+required = ["independent"]
+allow_unavailable = ["coderabbit"]
+max_reviewer_sessions_per_owner = 1
+findings_policy = "fix-in-workstream"
+regressions_only_from_round = 3
+
+[context]
+retain_owner_through_fixes = true
+rebrief_after_compaction = true
+compact_at_boundary = true
+
+[cleanup]
+reviewer_sessions = "close-after-accepted-evidence"
+owner_sessions = "retain-until-integrated"
+workspaces = "retain-until-verified-and-authorized"
+partial_launch = "retain-for-inspection"
+
+[supervision]
+# Deadlines a request carries, and how far ahead any wait or due item may be rescheduled.
+ack_window_minutes = 10
+result_window_minutes = 90
+max_wait_check_minutes = 240
+decision_overdue_minutes = 30
+# Fleet sweeps start at the initial interval and double while nothing changes.
+heartbeat_initial_minutes = 10
+heartbeat_max_minutes = 120
+
+[limits]
+max_active_workstreams = 4
+max_dispatch_attempts = 3
+cleanup_evidence_max_age_hours = 12
+
+[repository]
+install_command = "inspect-repository"
+local_gates = "repository-defined"

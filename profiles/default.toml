@@ -1,0 +1,68 @@
+# Generic run profile. Values marked as invariants in scripts/run_profile.py are refused
+# if changed; the rest are choices a coordinator resolves before the first dispatch.
+
+[profile]
+name = "default"
+version = 1
+
+[runtime]
+# A Codex coordinator dispatches Codex workers and a Claude coordinator dispatches Claude
+# workers, unless the user names an agent kind or transport for this run.
+default = "match-coordinator"
+explicit_choice_wins = true
+cross_runtime_requires_instruction = true
+
+[topology]
+mode = "workstreams"
+state_writer = "coordinator"
+one_writable_assignment_per_workspace = true
+lane_reuse = "never"
+successor_spawning = "coordinator"
+
+[delivery]
+push = "owner"
+pr_create = "owner"
+merge = "coordinator"
+release = "coordinator"
+merge_order = "explicit-queue"
+# Forge evidence older than this is re-read before completion or landing.
+evidence_max_age_minutes = 30
+# Ship completion needs a passing agent co-author check on the verified head.
+forbid_agent_coauthors = true
+
+[review]
+required = ["independent"]
+allow_unavailable = []
+max_reviewer_sessions_per_owner = 1
+findings_policy = "fix-in-workstream"
+regressions_only_from_round = 3
+
+[context]
+retain_owner_through_fixes = true
+rebrief_after_compaction = true
+compact_at_boundary = true
+
+[cleanup]
+reviewer_sessions = "retain"
+owner_sessions = "retain-until-integrated"
+workspaces = "retain-until-verified-and-authorized"
+partial_launch = "retain-for-inspection"
+
+[supervision]
+# Deadlines a request carries, and how far ahead any wait or due item may be rescheduled.
+ack_window_minutes = 10
+result_window_minutes = 90
+max_wait_check_minutes = 240
+decision_overdue_minutes = 30
+# Fleet sweeps start at the initial interval and double while nothing changes.
+heartbeat_initial_minutes = 10
+heartbeat_max_minutes = 120
+
+[limits]
+max_active_workstreams = 3
+max_dispatch_attempts = 3
+cleanup_evidence_max_age_hours = 24
+
+[repository]
+install_command = "inspect-repository"
+local_gates = "repository-defined"

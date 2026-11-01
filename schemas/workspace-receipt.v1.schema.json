@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-coordination/workspace-receipt.v1",
+  "title": "Workspace receipt (Coordinate-owned)",
+  "type": "object",
+  "required": [
+    "manager",
+    "repository_common_dir",
+    "path",
+    "lease_holder",
+    "lease_observed",
+    "expected_base_sha",
+    "observed_head_sha",
+    "branch",
+    "provisioning",
+    "created_by_run",
+    "release_policy"
+  ],
+  "properties": {
+    "manager": {
+      "const": "treehouse"
+    },
+    "manager_contract": {
+      "const": "v2.0.0"
+    },
+    "repository_common_dir": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "lease_holder": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*/ws-[0-9]+$"
+    },
+    "lease_observed": {
+      "type": "boolean"
+    },
+    "expected_base_sha": {
+      "type": "string"
+    },
+    "observed_head_sha": {
+      "type": "string"
+    },
+    "branch": {
+      "type": "string"
+    },
+    "provisioning": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "ready",
+            "blocked",
+            "uncertain"
+          ]
+        },
+        "problems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "readiness": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "lockfiles": {
+          "type": "object"
+        }
+      }
+    },
+    "created_by_run": {
+      "type": "boolean"
+    },
+    "release_policy": {
+      "const": "retain-until-verified-and-authorized"
+    },
+    "root_dirty_entries": {
+      "type": "integer"
+    },
+    "capability_gaps": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "stderr_tail": {
+      "type": "string"
+    },
+    "acquired_at": {
+      "type": "string"
+    }
+  }
+}

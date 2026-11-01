@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "agent-coordination/landing.v1",
+  "title": "Landing record",
+  "type": "object",
+  "required": [
+    "executor",
+    "method",
+    "target_ref",
+    "merged_sha",
+    "evidence"
+  ],
+  "properties": {
+    "executor": {
+      "type": "string"
+    },
+    "method": {
+      "enum": [
+        "merge",
+        "squash",
+        "rebase"
+      ]
+    },
+    "target_ref": {
+      "type": "string"
+    },
+    "merged_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{7,64}$"
+    },
+    "evidence": {
+      "type": "string"
+    },
+    "pr": {},
+    "retained_ref": {
+      "type": "string"
+    }
+  },
+  "if": {
+    "properties": {
+      "method": {
+        "const": "squash"
+      }
+    }
+  },
+  "then": {
+    "required": [
+      "retained_ref"
+    ]
+  }
+}
